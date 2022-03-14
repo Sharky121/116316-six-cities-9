@@ -1,3 +1,10 @@
+export const MAX_RATE_STARS = 5;
+
+export const RateStars = {
+  MAX_RATE_STARS: 5,
+  MAX_WIDTH: 100,
+};
+
 export enum AppRoute {
   SignIn = '/login',
   Favorites  = '/favorites',
