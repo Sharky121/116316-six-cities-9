@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import PlaceCardLists from '../place-card-list/place-card-list';
 import Header from '../header/header';
+import СitiesMap from '../map/map';
 import {Offers, Offer} from '../../types/offer';
 
 type MainScreenProps = {
@@ -82,7 +83,9 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <СitiesMap/>
+              </section>
             </div>
           </div>
         </div>
