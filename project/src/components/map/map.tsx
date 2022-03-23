@@ -1,35 +1,49 @@
-import {useRef, useState, useEffect, MutableRefObject} from 'react';
-import {Map, TileLayer} from 'leaflet';
+import {useRef, useEffect} from 'react';
+import useMap from '../../hooks/useMap';
+import leaflet from 'leaflet';
+import {URL_MARKER_DEFAULT ,URL_MARKER_CURRENT} from '../../consts';
+import {Offer, Offers} from '../../types/offer';
+import {City} from '../../types/city';
 
-function СitiesMap(): JSX.Element {
-  const mapRef: MutableRefObject<null> = useRef(null);
-  const [map, setMap] = useState<Map | null>(null);
+type MapProps = {
+  city: City,
+  offers: Offers,
+  activeOffer: Offer | null,
+}
+
+function Map({offers, activeOffer, city}: MapProps): JSX.Element {
+  const mapRef = useRef(null);
+  const map = useMap(mapRef, city);
+
+  const defaultCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_DEFAULT,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+
+  const currentCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_CURRENT,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
 
   useEffect(() => {
-    if (mapRef.current && !map) {
-      const instance = new Map(mapRef.current, {
-        center: {
-          lat: 52.3909553943508,
-          lng: 4.85309666406198,
-        },
-        zoom: 15,
+    if (map) {
+      offers.forEach(({id, location}) => {
+        leaflet.marker({
+          lat: location.latitude,
+          lng: location.longitude,
+        }, {
+          icon: (activeOffer && activeOffer.id === id)
+            ? currentCustomIcon
+            : defaultCustomIcon,
+        }).addTo(map);
       });
-
-      const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        },
-      );
-
-      instance.addLayer(layer);
-
-      setMap(instance);
     }
-  }, [mapRef, map]);
+  }, [map, offers, activeOffer]);
+
 
   return <div style={{ height: '100%'}} ref={mapRef}></div>;
 }
 
-export default СitiesMap;
+export default Map;
