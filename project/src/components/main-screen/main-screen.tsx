@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import PlaceCardLists from '../place-card-list/place-card-list';
 import Header from '../header/header';
+import Map from '../map/map';
+import {City} from '../../mocks/city';
 import {Offers, Offer} from '../../types/offer';
 
 type MainScreenProps = {
@@ -61,7 +63,7 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam {activeOffer && activeOffer.id}</b>
+              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -82,7 +84,9 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={City} offers={offers} activeOffer={activeOffer}/>
+              </section>
             </div>
           </div>
         </div>
