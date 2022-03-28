@@ -24,7 +24,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
       setMap(instance);
     }
 
-  }, [mapRef, map]);
+  }, [mapRef, map, city]);
 
   return map;
 }
