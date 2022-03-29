@@ -8,22 +8,25 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && !map) {
-      const instance = new Map(mapRef.current, {
-        center: {
-          lat: city.lat,
-          lng: city.lng,
-        },
-        zoom: city.zoom,
-      });
+    if (mapRef.current !== null) {
+      if (map === null) {
+        const instance = new Map(mapRef.current, {
+          center: {
+            lat: city.lat,
+            lng: city.lng,
+          },
+          zoom: city.zoom,
+        });
 
-      const layer = new TileLayer(MapSettings.UrlTemplate,{attribution: MapSettings.Attribution});
+        const layer = new TileLayer(MapSettings.UrlTemplate,{attribution: MapSettings.Attribution});
 
-      instance.addLayer(layer);
+        instance.addLayer(layer);
 
-      setMap(instance);
+        setMap(instance);
+      } else {
+        map.setView([city.lat, city.lng], city.zoom);
+      }
     }
-
   }, [mapRef, map, city]);
 
   return map;

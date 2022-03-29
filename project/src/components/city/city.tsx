@@ -7,11 +7,11 @@ type CityProps = {
 }
 
 function CityItem({city}: CityProps): JSX.Element {
-  const selectedCity = useAppSelector((state) => state.city);
+  const activeCitySelector = useAppSelector((state) => state.activeCity);
   const dispatch = useAppDispatch();
 
   return (
-    <a className={`locations__item-link tabs__item ${city.title === selectedCity.title ? 'tabs__item--active' : ''}`} href="/" onClick={(evt) => {
+    <a className={`locations__item-link tabs__item ${city.title === activeCitySelector.title ? 'tabs__item--active' : ''}`} href="/" onClick={(evt) => {
       evt.preventDefault();
       dispatch(changeCityAction(city));
     }}

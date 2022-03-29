@@ -21,7 +21,7 @@ export const cities = [
     title: 'Hamburg',
     lat: 53.60210962461915,
     lng: 9.941548765055227,
-    zoom: 11,
+    zoom: 10,
   },
   {
     title: 'Dusseldorf',
