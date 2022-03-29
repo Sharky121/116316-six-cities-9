@@ -1,6 +1,7 @@
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
+import { Marker, LayerGroup } from 'leaflet';
 import {URL_MARKER_DEFAULT ,URL_MARKER_CURRENT} from '../../consts';
 import {Offer, Offers} from '../../types/offer';
 import {City} from '../../types/city';
@@ -29,16 +30,24 @@ function Map({offers, activeOffer, city}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      const markers: Marker[] = [];
+
       offers.forEach(({id, location}) => {
-        leaflet.marker({
+        const marker = new Marker({
           lat: location.latitude,
           lng: location.longitude,
-        }, {
-          icon: (activeOffer && activeOffer.id === id)
-            ? currentCustomIcon
-            : defaultCustomIcon,
-        }).addTo(map);
+        });
+
+        marker.setIcon(activeOffer?.id === id ? currentCustomIcon : defaultCustomIcon);
+        markers.push(marker);
       });
+
+      const layerGroup = new LayerGroup(markers);
+      layerGroup.addTo(map);
+
+      return () => {
+        map?.removeLayer(layerGroup);
+      };
     }
   }, [map, offers, activeOffer]);
 
