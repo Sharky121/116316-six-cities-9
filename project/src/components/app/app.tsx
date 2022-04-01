@@ -9,6 +9,9 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
+import {getDataLoaded} from '../../store/selectors';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type AppScreenProps = {
   offers: Offers;
@@ -17,6 +20,14 @@ type AppScreenProps = {
 }
 
 function App({offers, reviews, cities}: AppScreenProps): JSX.Element {
+  const isDataLoaded = useAppSelector(getDataLoaded);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>

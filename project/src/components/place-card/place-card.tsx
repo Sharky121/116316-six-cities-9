@@ -2,19 +2,22 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {RateStars} from '../../consts';
+import {useAppDispatch} from '../../hooks';
+import {setActiveOffer} from '../../store/action';
 
 type PlaceCardProps = {
   offer: Offer,
-  handlePlaceCardHover: (offer: Offer | null) => void,
 }
 
-function PlaceCard({offer, handlePlaceCardHover}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer}: PlaceCardProps): JSX.Element {
   const {id, title, rating, type, isPremium, isFavorite, price, previewImage} = offer;
+
+  const dispatch = useAppDispatch();
 
   const rateWidth = (RateStars.MAX_WIDTH * Math.round(rating)) / RateStars.MAX_RATE_STARS;
 
   return (
-    <article className="cities__place-card place-card" onMouseOver={() => handlePlaceCardHover(offer)} onMouseLeave= {() => handlePlaceCardHover(null)}>
+    <article className="cities__place-card place-card" onMouseOver={() => dispatch(setActiveOffer(id))} onMouseLeave= {() => dispatch(setActiveOffer(null))}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
