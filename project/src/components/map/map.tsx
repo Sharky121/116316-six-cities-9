@@ -3,17 +3,18 @@ import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
 import { Marker, LayerGroup } from 'leaflet';
 import {URL_MARKER_DEFAULT ,URL_MARKER_CURRENT} from '../../consts';
-import {Offer, Offers} from '../../types/offer';
+import {Offers} from '../../types/offer';
 import {City} from '../../types/city';
 
 type MapProps = {
   city: City,
   offers: Offers,
-  activeOffer: Offer | null,
+  activeOffer: number,
 }
 
 function Map({offers, activeOffer, city}: MapProps): JSX.Element {
   const mapRef = useRef(null);
+
   const map = useMap(mapRef, city);
 
   const defaultCustomIcon = leaflet.icon({
@@ -38,7 +39,7 @@ function Map({offers, activeOffer, city}: MapProps): JSX.Element {
           lng: location.longitude,
         });
 
-        marker.setIcon(activeOffer?.id === id ? currentCustomIcon : defaultCustomIcon);
+        marker.setIcon(activeOffer === id ? currentCustomIcon : defaultCustomIcon);
         markers.push(marker);
       });
 
