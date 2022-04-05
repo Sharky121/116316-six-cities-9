@@ -12,3 +12,7 @@ export const getCityOffers = (state) => {
   const city = getCity(state.activeCity);
   return state.offers.filter((offer) => offer.city.name === city.title);
 };
+
+export const getAuthStatus = (state) => state.authorizationStatus;
+
+export const getUser = (state) => state.user;

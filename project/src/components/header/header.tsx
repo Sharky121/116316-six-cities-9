@@ -1,8 +1,13 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../consts';
+import {AuthorizationStatus} from '../../consts';
 import Logo from '../logo/logo';
+import {useAppSelector} from '../../hooks';
+import {getAuthStatus} from '../../store/selectors';
+import AuthUserList from '../auth-user-list/auth-user-list';
+import NonAuthUserList from '../non-auth-user-list/non-auth-user-list';
 
 function Header(): JSX.Element {
+  const currentAuthStatus = useAppSelector(getAuthStatus);
+
   return (
     <header className="header">
       <div className="container">
@@ -11,20 +16,9 @@ function Header(): JSX.Element {
             <Logo/>
           </div>
           <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </Link>
-              </li>
-              <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
-                  <span className="header__signout">Sign out</span>
-                </a>
-              </li>
-            </ul>
+            {currentAuthStatus === AuthorizationStatus.Auth
+              ? <AuthUserList />
+              : <NonAuthUserList />}
           </nav>
         </div>
       </div>

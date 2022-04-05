@@ -2,6 +2,8 @@ export const URL_MARKER_DEFAULT = '/img/pin.svg';
 
 export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export const RatingInputs = {
   perfect: '5',
   good: '4',
@@ -14,6 +16,18 @@ export const RateStars = {
   MAX_RATE_STARS: 5,
   MAX_WIDTH: 100,
 };
+
+export const RegExpTemplates = {
+  EMAIL: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+  PASSWORD: /[a-zA-Z]+[0-9]/,
+};
+export const errorMessages = {
+  EMAIL_FORMAT: 'Введите корректный email',
+  EMAIL_EMPTY: 'Введите email',
+  PASSWORD_CHAR: 'Пароль должен состоять из букв и цифр',
+  PASSWORD_LENGTH: 'Пароль должен быть не меньше двух символов',
+};
+
 
 export enum AppRoute {
   SignIn = '/login',
@@ -35,9 +49,9 @@ export enum MapSettings {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
 }
-
-export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum HTTP_CODE {
   BAD_REQUEST = 400,
