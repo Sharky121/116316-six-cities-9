@@ -38,7 +38,6 @@ export const checkAuthAction = createAsyncThunk(
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(setUser(data));
     } catch(error) {
-      errorHandle(error);
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
@@ -52,6 +51,7 @@ export const loginAction = createAsyncThunk(
       saveToken(data.token);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(redirectToRoute(AppRoute.Main));
+      store.dispatch(setUser(data));
     } catch(error) {
       errorHandle(error);
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
