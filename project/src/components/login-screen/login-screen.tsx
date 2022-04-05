@@ -3,6 +3,7 @@ import {FormEvent, useRef} from 'react';
 import {AuthData} from '../../types/auth-data';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-action';
+import {validateEmail, validatePassword} from '../../services/validate';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -17,10 +18,15 @@ function LoginScreen(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null &&  passwordRef.current !== null) {
+    const email =loginRef.current !== null ? loginRef.current.value : '';
+    const password = passwordRef.current !== null ? passwordRef.current.value : '';
+
+    const isFormValid = validateEmail(email.trim()) && validatePassword(password.trim());
+
+    if (loginRef.current !== null &&  passwordRef.current !== null && isFormValid) {
       onSubmit({
         login: loginRef.current.value,
-        password:  passwordRef.current.value,
+        password: passwordRef.current.value,
       });
     }
   };
