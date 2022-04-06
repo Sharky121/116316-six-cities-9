@@ -1,31 +1,22 @@
-import {useEffect} from 'react';
-import {useAppSelector, useAppDispatch} from '../../hooks';
+import {useAppSelector} from '../../hooks';
+import {Cities} from '../../types/city';
+import {getActiveOffer, getCityId, getCityOffers} from '../../store/selectors';
 import PlaceCardLists from '../place-card-list/place-card-list';
 import Header from '../header/header';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
-import {Cities} from '../../types/city';
-import {filterCityAction} from '../../store/action';
 import {getCity} from '../../utils';
-import {getActiveOffer, getCityId, getCityOffers} from '../../store/selectors';
 
 type MainScreenProps = {
   cities: Cities,
 }
 
 function MainScreen({cities}: MainScreenProps): JSX.Element {
-
   const activeCityId = useAppSelector(getCityId);
   const cityOffers = useAppSelector(getCityOffers);
   const activeOffer = useAppSelector(getActiveOffer);
 
-  const dispatch = useAppDispatch();
-
   const city = getCity(activeCityId);
-
-  useEffect(() => {
-    dispatch(filterCityAction());
-  },[activeCityId]);
 
   return (
     <div className="page page--gray page--main">

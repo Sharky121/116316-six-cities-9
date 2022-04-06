@@ -1,4 +1,6 @@
 import {Routes, Route} from 'react-router-dom';
+import {useAppSelector} from '../../hooks';
+import browserHistory from '../../browser-history';
 import {Offers} from '../../types/offer';
 import {Reviews} from '../../types/reviews';
 import {Cities} from '../../types/city';
@@ -10,10 +12,9 @@ import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
 import {getAuthStatus, getDataLoaded} from '../../store/selectors';
-import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
+
 
 type AppScreenProps = {
   offers: Offers;
