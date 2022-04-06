@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
 import {Offer} from '../../types/offer';
 import {RateStars} from '../../consts';
-import {useAppDispatch} from '../../hooks';
-import {setActiveOffer} from '../../store/action';
+import {setActiveOffer} from '../../store/another-process/another-process';
 
 type PlaceCardProps = {
   offer: Offer,

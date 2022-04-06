@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeCityAction} from '../../store/action';
-import {getCityId} from '../../store/selectors';
 import {City} from '../../types/city';
+import {getCityId} from '../../store/selectors';
+import {changeCityAction} from '../../store/another-process/another-process';
 
 type CityProps = {
   city: City,

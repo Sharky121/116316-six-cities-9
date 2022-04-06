@@ -9,7 +9,7 @@ import {City} from '../../types/city';
 type MapProps = {
   city: City,
   offers: Offers,
-  activeOffer: number,
+  activeOffer: number | null,
 }
 
 function Map({offers, activeOffer, city}: MapProps): JSX.Element {

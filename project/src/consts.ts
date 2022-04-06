@@ -21,13 +21,13 @@ export const RegExpTemplates = {
   EMAIL: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
   PASSWORD: /[a-zA-Z]+[0-9]/,
 };
+
 export const errorMessages = {
   EMAIL_FORMAT: 'Введите корректный email',
   EMAIL_EMPTY: 'Введите email',
   PASSWORD_CHAR: 'Пароль должен состоять из букв и цифр',
   PASSWORD_LENGTH: 'Пароль должен быть не меньше двух символов',
 };
-
 
 export enum AppRoute {
   SignIn = '/login',
@@ -57,4 +57,10 @@ export enum HTTP_CODE {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
+}
+
+export enum NameSpace {
+  data = 'DATA',
+  user = 'USER',
+  another = 'ANOTHER',
 }
